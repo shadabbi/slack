@@ -1,0 +1,44 @@
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 0;
+  color: white;
+  background-color: var(--slack-color);
+
+  & .headerLeft {
+    display: flex;
+    flex: 0.3;
+    align-items: center;
+    margin-left: 20px;
+    justify-content: space-between;
+
+    div {
+      margin-right: 30px;
+    }
+  }
+
+  & .headerSearch {
+    flex: 0.4;
+    text-align: center;
+    display: flex;
+    padding: 0 50px;
+    color: gray;
+    border: 1px solid gray;
+    border-radius: 6px;
+    justify-content: space-between;
+    input {
+      background-color: transparent;
+      border: none;
+      text-align: center;
+      min-width: 35vw;
+    }
+  }
+
+  & .headerRight {
+    flex: 0.3;
+    display: flex;
+    justify-content: flex-end;
+    margin-right: 20px;
+  }
+}
