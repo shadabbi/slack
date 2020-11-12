@@ -3,7 +3,6 @@ import { useParams } from "react-router-dom";
 import StarBorderIcon from "@material-ui/icons/StarBorder";
 import InfoIcon from "@material-ui/icons/Info";
 
-
 import classes from "./Chat.module.scss";
 import db from "../../firebase/firebase.util";
 import Message from "../Message/Message";
@@ -14,6 +13,11 @@ function Chat() {
 
   const [roomDetails, setRoomDetails] = useState("");
   const [messages, setMessages] = useState([]);
+
+  const scrollDownHandler = () => {
+    const  element = document.querySelector(".chat");
+    element.scrollTop = element.scrollHeight;
+  }
 
   useEffect(() => {
     if (roomId) {
@@ -30,10 +34,12 @@ function Chat() {
       .onSnapshot((snapshot) => {
         setMessages(snapshot.docs.map((doc) => doc.data()));
       });
+
+      scrollDownHandler()
   }, [roomId]);
   return (
-    <div className={classes.chat}>
-      <h1>Your are in the {roomId} room</h1>
+    <div className={[classes.chat, "chat"].join(" ")}>
+      <h1>Your are in the {roomDetails?.name} room</h1>
       <div className={classes.chatHeader}>
         <div className={classes.chatHeaderLeft}>
           <h4 className={classes.channelName}>
@@ -53,7 +59,7 @@ function Chat() {
           <Message {...message} />
         ))}
       </div>
-      <ChatInput channelName={roomDetails?.name} channelId={roomId} />
+      <ChatInput scrollDownHandler={scrollDownHandler} channelName={roomDetails?.name} channelId={roomId} />
     </div>
   );
 }

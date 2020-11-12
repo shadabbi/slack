@@ -1,14 +1,14 @@
 import React from "react";
 import { Avatar } from "@material-ui/core";
 import AccessTimeIcon from "@material-ui/icons/AccessTime";
-import HelpOutlineIcon from "@material-ui/icons/HelpOutline";
 import SearchIcon from "@material-ui/icons/Search";
+import MenuIcon from "@material-ui/icons/Menu";
 
 import classes from "./Header.module.scss";
 import { useStateValue } from "../../context/stateProvider";
 
 function Header() {
-  const [{ user }, dispatch] = useStateValue();
+  const [{ user, showSidebar }, dispatch] = useStateValue();
   return (
     <div className={classes.header}>
       <div className={classes.headerLeft}>
@@ -27,7 +27,7 @@ function Header() {
         <input></input>
       </div>
       <div className={classes.headerRight}>
-        <HelpOutlineIcon />
+        <MenuIcon style={{cursor:'pointer'}} onClick={()=>dispatch({type:'SHOW_SIDEBAR', payload:!showSidebar})} />
       </div>
     </div>
   );

@@ -1,4 +1,8 @@
 .header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -40,5 +44,11 @@
     display: flex;
     justify-content: flex-end;
     margin-right: 20px;
+  }
+}
+
+@media (max-width: 450px) {
+  .headerSearch {
+    display: none !important;
   }
 }

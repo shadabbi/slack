@@ -19,7 +19,7 @@ import { useStateValue } from "../../context/stateProvider";
 
 function Sidebar() {
   const [channels, setChannels] = useState([]);
-  const [{ user }] = useStateValue();
+  const [{ user, showSidebar }, dispatch] = useStateValue();
 
   useEffect(() => {
     const channelsRef = db.collection("rooms").onSnapshot((snapshot) => {
@@ -32,36 +32,57 @@ function Sidebar() {
     });
   }, []);
 
-  console.log(channels);
   return (
-    <div className={classes.sidebar}>
-      <div className={classes.sidebarHeader}>
-        <div className={classes.sidebarInfo}>
-          <h2>Programmers</h2>
-          <h3>
-            <FiberManualRecordIcon className={classes.active} />
-            {user?.displayName}
-          </h3>
+    <div>
+      {/* <div
+        className={classes.toggle}
+        onClick={() => setshowSideBar(!showSideBar)}
+      >
+        toggle
+      </div> */}
+      <div
+        className={classes.backdrop}
+        onClick={() => dispatch({ type: "SHOW_SIDEBAR", payload: false })}
+        style={{ display: showSidebar ? "block" : "none" }}
+      ></div>
+      <div
+        className={classes.sidebar}
+        style={{
+          transform: showSidebar ? "translateX(0)" : "translateX(-100%)",
+        }}
+      >
+        <div className={classes.sidebarHeader}>
+          <div className={classes.sidebarInfo}>
+            <h2>Programmers</h2>
+            <h3>
+              <FiberManualRecordIcon className={classes.active} />
+              {user?.displayName}
+            </h3>
+          </div>
+          <div className={classes.icon}>
+            <CreateIcon />
+          </div>
         </div>
-        <div className={classes.icon}>
-          <CreateIcon />
-        </div>
+        <SidebarOption Icon={InsertCommentIcon} title="Threads" />
+        <SidebarOption Icon={InboxIcon} title="Mentions & reactions" />
+        <SidebarOption Icon={DraftsIcon} title="Saved items" />
+        <SidebarOption Icon={BookmarkBorderIcon} title="Channel browser" />
+        <SidebarOption Icon={PeopleAltIcon} title="People & user groups" />
+        <SidebarOption Icon={AppsIcon} title="Apps" />
+        <SidebarOption Icon={FileCopyIcon} title="File browser" />
+        <SidebarOption Icon={ExpandLessIcon} title="Show less" />
+        <hr></hr>
+        <SidebarOption Icon={ExpandMoreIcon} title="Channels" />
+        <hr></hr>
+        <SidebarOption Icon={AddIcon} addChannelOption title="Add Channel" />
+        {channels.map((channel) => (
+          <SidebarOption
+            title={channel.name}
+            id={channel.id}
+            key={channel.id}
+          />
+        ))}
       </div>
-      <SidebarOption Icon={InsertCommentIcon} title="Threads" />
-      <SidebarOption Icon={InboxIcon} title="Mentions & reactions" />
-      <SidebarOption Icon={DraftsIcon} title="Saved items" />
-      <SidebarOption Icon={BookmarkBorderIcon} title="Channel browser" />
-      <SidebarOption Icon={PeopleAltIcon} title="People & user groups" />
-      <SidebarOption Icon={AppsIcon} title="Apps" />
-      <SidebarOption Icon={FileCopyIcon} title="File browser" />
-      <SidebarOption Icon={ExpandLessIcon} title="Show less" />
-      <hr></hr>
-      <SidebarOption Icon={ExpandMoreIcon} title="Channels" />
-      <hr></hr>
-      <SidebarOption Icon={AddIcon} addChannelOption title="Add Channel" />
-      {channels.map((channel) => (
-        <SidebarOption title={channel.name} id={channel.id} key={channel.id} />
-      ))}
     </div>
   );
 }

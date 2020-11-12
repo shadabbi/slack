@@ -1,19 +1,24 @@
 .sidebar {
   color: #fff;
   background-color: var(--slack-color);
-  border-top: 1px solid #49274b;
+  border-top: 1px solid #99a8b2;
   max-width: 260px;
   width: 210px;
+  position: absolute;
+  left: 0;
+  z-index: 9;
+
+  transition: all 0.5s;
 
   & hr {
     margin: 10px 0;
-    border: 1px solid #49274b;
+    border: 1px solid #99a8b2;
   }
 
   & .sidebarHeader {
     display: flex;
     justify-content: space-between;
-    border-bottom: 1px solid #49274b;
+    border-bottom: 1px solid #99a8b2;
     padding: 13px;
 
     .sidebarInfo {
@@ -39,7 +44,7 @@
       }
     }
     .icon {
-      color: #49274b;
+      color: #99a8b2;
       background-color: #fff;
       border-radius: 900px;
       height: 20px;
@@ -51,4 +56,28 @@
       font-size: 18px;
     }
   }
+}
+
+.toggle {
+  position: fixed;
+}
+
+.backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba($color: #000000, $alpha: 0.9);
+  z-index: 8;
+}
+
+@media (max-width: 320px) {
+  // .sidebar {
+  //   transform: translateX(-100%);
+  // }
+
+  // .toggle {
+  //   display: block;
+  // }
 }

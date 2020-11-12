@@ -1,5 +1,6 @@
 export const INIT_STATE = {
   user: null,
+  showSidebar: false,
 };
 
 export const actionTypes = {
@@ -12,6 +13,11 @@ const reducer = (state = INIT_STATE, action) => {
       return {
         ...state,
         user: action.payload,
+      };
+    case "SHOW_SIDEBAR":
+      return {
+        ...state,
+        showSidebar: action.payload,
       };
 
     default:

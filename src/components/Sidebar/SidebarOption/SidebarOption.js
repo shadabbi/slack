@@ -3,11 +3,15 @@ import { useHistory } from "react-router-dom";
 import db from "../../../firebase/firebase.util";
 
 import classes from "./SidebarOption.module.scss";
+import { useStateValue } from "../../../context/stateProvider";
 
 function SidebarOption({ Icon, title, id, addChannelOption }) {
   const history = useHistory();
 
+  const [{ showSidebar }, dispatch] = useStateValue();
+
   const selectChannel = () => {
+    dispatch({ type: "SHOW_SIDEBAR", payload: !showSidebar });
     if (id) {
       history.push(`/room/${id}`);
     } else {
