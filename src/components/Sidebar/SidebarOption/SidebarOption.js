@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import db from "../../../firebase/firebase.util";
 
@@ -28,6 +28,14 @@ function SidebarOption({ Icon, title, id, addChannelOption }) {
     }
   };
 
+  useEffect(() => {
+    history.push(`/room/XH3tXhkfPdVGaVIkcy8Q`);
+  }, []);
+
+  if (!id) {
+  }
+
+  //default channel
   return (
     <div
       className={classes.sidebarOption}

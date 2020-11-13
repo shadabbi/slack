@@ -10,32 +10,33 @@ import ChatInput from "../chatInput/ChatInput";
 
 function Chat() {
   const { roomId } = useParams();
-
   const [roomDetails, setRoomDetails] = useState("");
   const [messages, setMessages] = useState([]);
 
   const scrollDownHandler = () => {
-    const  element = document.querySelector(".chat");
+    const element = document.querySelector(".chat");
     element.scrollTop = element.scrollHeight;
-  }
+  };
 
   useEffect(() => {
+ 
     if (roomId) {
       db.collection("rooms")
         .doc(roomId)
         .onSnapshot((snapshot) => {
           setRoomDetails(snapshot.data());
         });
-    }
-    db.collection("rooms")
-      .doc(roomId)
-      .collection("messages")
-      .orderBy("timestamp", "asc")
-      .onSnapshot((snapshot) => {
-        setMessages(snapshot.docs.map((doc) => doc.data()));
-      });
 
-      scrollDownHandler()
+      db.collection("rooms")
+        .doc(roomId)
+        .collection("messages")
+        .orderBy("timestamp", "asc")
+        .onSnapshot((snapshot) => {
+          setMessages(snapshot.docs.map((doc) => doc.data()));
+        });
+
+      scrollDownHandler();
+    }
   }, [roomId]);
   return (
     <div className={[classes.chat, "chat"].join(" ")}>
@@ -59,7 +60,11 @@ function Chat() {
           <Message {...message} />
         ))}
       </div>
-      <ChatInput scrollDownHandler={scrollDownHandler} channelName={roomDetails?.name} channelId={roomId} />
+      <ChatInput
+        scrollDownHandler={scrollDownHandler}
+        channelName={roomDetails?.name}
+        channelId={roomId}
+      />
     </div>
   );
 }
