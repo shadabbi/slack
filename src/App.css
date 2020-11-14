@@ -6,3 +6,30 @@ body {
   display: flex;
   height: 100vh;
 }
+
+.cursor {
+  width: 30px;
+  height: 30px;
+  border: 1px solid black;
+  border-radius: 50%;
+  position: absolute;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  display: none;
+  transform-origin: 100% 100%;
+  backdrop-filter: grayscale(1);
+  /* transition-property: transform,background;
+  transition-duration: 0.3s; */
+  transition: all 0.2s;
+}
+
+.cursor2 {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  position: absolute;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  /* transition: all 0.1s; */
+  background-color: red;
+}

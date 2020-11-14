@@ -5,7 +5,7 @@ import db from "../../../firebase/firebase.util";
 import classes from "./SidebarOption.module.scss";
 import { useStateValue } from "../../../context/stateProvider";
 
-function SidebarOption({ Icon, title, id, addChannelOption }) {
+function SidebarOption({ Icon, title, id, addChannelOption, collapse }) {
   const history = useHistory();
 
   const [{ showSidebar }, dispatch] = useStateValue();
@@ -35,12 +35,22 @@ function SidebarOption({ Icon, title, id, addChannelOption }) {
   if (!id) {
   }
 
+  const optionHandler = () => {
+    if (addChannelOption) {
+      addChannel();
+    } else if (collapse) {
+      collapse();
+    } else {
+      selectChannel();
+    }
+  };
+
   //default channel
   return (
     <div
       className={classes.sidebarOption}
       // onClick={() =>}
-      onClick={addChannelOption ? addChannel : selectChannel}
+      onClick={optionHandler}
     >
       {Icon && <Icon className={classes.sidebarOptionIcon} />}
       {Icon ? (

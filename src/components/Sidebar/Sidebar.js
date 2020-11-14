@@ -19,6 +19,8 @@ import { useStateValue } from "../../context/stateProvider";
 
 function Sidebar() {
   const [channels, setChannels] = useState([]);
+  const [narrowChannels, setNarrowChannels] = useState(true);
+  const [narrowOptions, setNarrowOptions] = useState(true);
   const [{ user, showSidebar }, dispatch] = useStateValue();
 
   useEffect(() => {
@@ -65,23 +67,35 @@ function Sidebar() {
         </div>
         <SidebarOption Icon={InsertCommentIcon} title="Threads" />
         <SidebarOption Icon={InboxIcon} title="Mentions & reactions" />
-        <SidebarOption Icon={DraftsIcon} title="Saved items" />
-        <SidebarOption Icon={BookmarkBorderIcon} title="Channel browser" />
-        <SidebarOption Icon={PeopleAltIcon} title="People & user groups" />
-        <SidebarOption Icon={AppsIcon} title="Apps" />
-        <SidebarOption Icon={FileCopyIcon} title="File browser" />
-        <SidebarOption Icon={ExpandLessIcon} title="Show less" />
+        <div className={narrowOptions ? classes.hide : classes.show}>
+          <SidebarOption Icon={DraftsIcon} title="Saved items" />
+          <SidebarOption Icon={BookmarkBorderIcon} title="Channel browser" />
+          <SidebarOption Icon={PeopleAltIcon} title="People & user groups" />
+          <SidebarOption Icon={AppsIcon} title="Apps" />
+          <SidebarOption Icon={FileCopyIcon} title="File browser" />
+        </div>
+        <SidebarOption
+          collapse={() => setNarrowOptions(!narrowOptions)}
+          Icon={narrowOptions ? ExpandLessIcon : ExpandMoreIcon}
+          title="Show less"
+        />
         <hr></hr>
-        <SidebarOption Icon={ExpandMoreIcon} title="Channels" />
+        <SidebarOption
+          collapse={() => setNarrowChannels(!narrowChannels)}
+          Icon={narrowChannels ? ExpandLessIcon : ExpandMoreIcon}
+          title="Channels"
+        />
         <hr></hr>
-        <SidebarOption Icon={AddIcon} addChannelOption title="Add Channel" />
-        {channels.map((channel) => (
-          <SidebarOption
-            title={channel.name}
-            id={channel.id}
-            key={channel.id}
-          />
-        ))}
+        <div className={narrowChannels ? classes.hide : classes.show}>
+          <SidebarOption Icon={AddIcon} addChannelOption title="Add Channel" />
+          {channels.map((channel) => (
+            <SidebarOption
+              title={channel.name}
+              id={channel.id}
+              key={channel.id}
+            />
+          ))}
+        </div>
       </div>
     </div>
   );

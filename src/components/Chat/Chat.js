@@ -19,7 +19,6 @@ function Chat() {
   };
 
   useEffect(() => {
- 
     if (roomId) {
       db.collection("rooms")
         .doc(roomId)
@@ -38,8 +37,25 @@ function Chat() {
       scrollDownHandler();
     }
   }, [roomId]);
+
+  useEffect(() => {
+    const cursor = document.querySelector(".cursor");
+    const cursor2 = document.querySelector(".cursor2");
+
+    window.addEventListener("mousemove", (e) => {
+      cursor.style.display = "block";
+      let mouseX = e.pageX;
+      let mouseY = e.pageY;
+      cursor.style.top = `${mouseY}px`;
+      cursor.style.left = `${mouseX}px`;
+      cursor2.style.top = `${mouseY}px`;
+      cursor2.style.left = `${mouseX}px`;
+    });
+  }, []);
   return (
     <div className={[classes.chat, "chat"].join(" ")}>
+      <div className="cursor"></div>
+      <div className="cursor2"></div>
       <h1>Your are in the {roomDetails?.name} room</h1>
       <div className={classes.chatHeader}>
         <div className={classes.chatHeaderLeft}>
